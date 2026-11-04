@@ -57,4 +57,54 @@ void Point2DSet::swap(Point2DSet& other) noexcept {
 bool Point2DSet::empty() const {
     return size_ == 0;
 }
+
+bool Point2DSet::contains(const Point2D& point) const {
+    for (std::size_t i = 0; i < size_; ++i) {
+        if (data_[i] == point) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Point2DSet::add(const Point2D& point) {
+    if (contains(point)) {
+        return false;
+    }
+
+    if (size_ == capacity_) {
+        const std::size_t new_capacity = (capacity_ == 0) ? 1 : capacity_ * 2;
+        Point2D* new_data = new Point2D[new_capacity];
+
+        for (std::size_t i = 0; i < size_; ++i) {
+            new_data[i] = data_[i];
+        }
+
+        delete[] data_;
+        data_ = new_data;
+        capacity_ = new_capacity;
+    }
+
+    data_[size_] = point;
+    ++size_;
+    return true;
+}
+
+bool Point2DSet::remove(const Point2D& point) {
+    std::size_t index = 0;
+    while (index < size_ && !(data_[index] == point)) {
+        ++index;
+    }
+
+    if (index == size_) {
+        return false;
+    }
+
+    for (; index + 1 < size_; ++index) {
+        data_[index] = data_[index + 1];
+    }
+
+    --size_;
+    return true;
+}
 }  // namespace lab03

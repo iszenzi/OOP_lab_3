@@ -31,6 +31,18 @@ public:
     }
 
     bool empty() const;
+
+    bool contains(const Point2D& point) const;
+    bool add(const Point2D& point);
+    bool remove(const Point2D& point);
+
+    bool operator()(const Point2D& other) const;
+
+    Point2DSet& operator+=(const Point2D& other);
+    Point2DSet& operator-=(const Point2D& other);
+
+    bool operator==(const Point2DSet& other) const;
+    bool operator!=(const Point2DSet& other) const;
 };
 
 }  // namespace lab03
