@@ -1,5 +1,6 @@
 #pragma once
 #include <cstddef>
+#include <iosfwd>
 
 #include "lab03/point.hpp"
 
@@ -43,6 +44,12 @@ public:
 
     bool operator==(const Point2DSet& other) const;
     bool operator!=(const Point2DSet& other) const;
+
+    Point2DSet operator|(const Point2DSet& other) const;
+    Point2DSet operator&(const Point2DSet& other) const;
+    Point2DSet operator-(const Point2DSet& other) const;
+
+    friend std::ostream& operator<<(std::ostream& os, const Point2DSet& a);
 };
 
 }  // namespace lab03

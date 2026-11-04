@@ -1,5 +1,6 @@
 #include "lab03/point_set.hpp"
 
+#include <ostream>
 #include <utility>
 
 namespace lab03 {
@@ -137,5 +138,52 @@ bool Point2DSet::operator==(const Point2DSet& other) const {
 }
 bool Point2DSet::operator!=(const Point2DSet& other) const {
     return !(*this == other);
+}
+Point2DSet Point2DSet::operator|(const Point2DSet& other) const {
+    Point2DSet result;
+    for (std::size_t i = 0; i < size_; ++i) {
+        result.add(data_[i]);
+    }
+    for (std::size_t i = 0; i < other.size_; ++i) {
+        result.add(other.data_[i]);
+    }
+    return result;
+}
+Point2DSet Point2DSet::operator&(const Point2DSet& other) const {
+    Point2DSet result;
+    for (std::size_t i = 0; i < size_; ++i) {
+        if (other(data_[i])) {
+            result.add(data_[i]);
+        }
+    }
+    return result;
+}
+Point2DSet Point2DSet::operator-(const Point2DSet& other) const {
+    Point2DSet result;
+    for (std::size_t i = 0; i < size_; ++i) {
+        if (!(other(data_[i]))) {
+            result.add(data_[i]);
+        }
+    }
+    return result;
+}
+
+std::ostream& operator<<(std::ostream& os, const Point2DSet& a) {
+    os << '{';
+    for (std::size_t i = 0; i < a.size_; ++i) {
+        if (i == 0) {
+            os << ' ';
+        } else {
+            os << ", ";
+        }
+
+        os << a.data_[i];
+    }
+    if (!a.empty()) {
+        os << ' ';
+    }
+
+    os << '}';
+    return os;
 }
 }  // namespace lab03

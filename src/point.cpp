@@ -1,5 +1,7 @@
 #include "lab03/point.hpp"
 
+#include <ostream>
+
 namespace lab03 {
 
 Point2D::Point2D(int x, int y) : x_(x), y_(y) {}
