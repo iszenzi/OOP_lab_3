@@ -36,10 +36,10 @@ public:
     bool add(const Point2D& point);
     bool remove(const Point2D& point);
 
-    bool operator()(const Point2D& other) const;
+    bool operator()(const Point2D& point) const;
 
-    Point2DSet& operator+=(const Point2D& other);
-    Point2DSet& operator-=(const Point2D& other);
+    Point2DSet& operator+=(const Point2D& point);
+    Point2DSet& operator-=(const Point2D& point);
 
     bool operator==(const Point2DSet& other) const;
     bool operator!=(const Point2DSet& other) const;

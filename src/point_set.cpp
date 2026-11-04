@@ -107,4 +107,35 @@ bool Point2DSet::remove(const Point2D& point) {
     --size_;
     return true;
 }
+
+bool Point2DSet::operator()(const Point2D& point) const {
+    return contains(point);
+}
+
+Point2DSet& Point2DSet::operator+=(const Point2D& point) {
+    add(point);
+    return *this;
+}
+Point2DSet& Point2DSet::operator-=(const Point2D& point) {
+    remove(point);
+    return *this;
+}
+
+bool Point2DSet::operator==(const Point2DSet& other) const {
+    if (size_ == other.size_) {
+        for (std::size_t i = 0; i < size_; ++i) {
+            if (other(data_[i])) {
+                continue;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    } else {
+        return false;
+    }
+}
+bool Point2DSet::operator!=(const Point2DSet& other) const {
+    return !(*this == other);
+}
 }  // namespace lab03
